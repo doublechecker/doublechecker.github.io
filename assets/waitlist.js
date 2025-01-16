@@ -3,7 +3,7 @@ function subscribeToWaitlist() {
   
     // send the email to the server
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/subscribe', true);
+    xhr.open('POST', 'https://rs-37c6c1f4-018b1cd2-produc-rs-018b1cd2-d7de14e7-produc.app.indiecloud.dev/api/v1/subscriptions', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
   
     xhr.onreadystatechange = function () {
