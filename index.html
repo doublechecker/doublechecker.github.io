@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>IndieCloud.dev</title>
+    <!-- favicon -->
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="assets/waitlist.js"></script>
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        background-color: #121e21;
+      }
+      .text-primary {
+        color: #7aacb6;
+      }
+      .text-primary-dark {
+        color: #5a97a3;
+      }
+
+      .text-secondary {
+        color: #b6847a;
+      }
+      .text-secondary-dark {
+        color: #a3665a;
+      }
+      .text-copy {
+        color: #fafcfc;
+      }
+      .text-copy-light {
+        color: #cee0e4;
+      }
+      .text-copy-lighter {
+        color: #8db6bf;
+      }
+      .text-error {
+        color: #b67a7a;
+      }
+      .text-success {
+        color: #7ab67a;
+      }
+      .bg-primary {
+        background-color: #7aacb6;
+      }
+      .bg-primary-dark {
+        background-color: #5a97a3;
+      }
+      .bg-foreground {
+        background-color: #1b2d31;
+      }
+      .border-border {
+        border-color: #2e4c52;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex flex-col items-center justify-center w-full h-full">
+      <div class="flex flex-col items-center justify-center w-1/2 p-8">
+        <div class="flex items-baseline text-6xl !no-underline my-6">
+          <span class="text-7xl text-primary-dark">I</span>
+          <span class="text-primary">ndie</span>
+          <span class="text-7xl text-secondary-dark">C</span>
+          <span class="text-secondary">loud</span>
+          <span class="text-copy-lighter text-sm font-bold">.dev</span>
+        </div>
+        <span class="text-copy-light text-2xl mt-6">Indie-Friendly Hosting That Works the Way You Do</span>
+
+        <div class="border-t border-border w-full my-8"></div>
+        <div id="form-sec" class="flex flex-col">
+          <form class="flex flex-row my-4" onsubmit="subscribeToWaitlist()" action="javascript:void(0)">
+            <input id="emailInput" type="email" class="w-72 rounded-md px-4 bg-foreground border border-border text-copy" placeholder="Enter your email" />
+            <button type="submit"  class="h-10 bg-primary-dark border-1 border-border text-copy px-5 rounded-md hover:bg-primary leading-3 ml-4">Join the Waitlist</button>
+          </form>
+          <span id="waitlistMessage" class="text-copy-lighter text-sm"></span>
+        </div>
+        <span class="mt-6 text-copy-light text-xl text-center">
+          IndieCloud combines the predictability and low cost of a VPS with the simplicity of Vercel. Frontend, backend, or database – deploy everything directly from your GitHub
+          repo and focus on creating value, not dealing with hosting headaches.
+        </span>
+      </div>
+    </div>
+    <!-- <div class="absolute bottom-0 w-full flex flex-row justify-between items-end mx-auto mb-2 px-2">
+      <div class="pb-4">
+        <a href="https://twitter.com/indieclouddev" target="_blank">
+          <img class="h-6" src="assets/x_dark.svg" />
+        </a>
+      </div>
+    </div> -->
+  </body>
+</html>
