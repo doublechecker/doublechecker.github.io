@@ -4,6 +4,7 @@
     <!-- favicon -->
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <script src="assets/waitlist.js"></script>
     <style>
       body {
@@ -68,7 +69,12 @@
         <div class="flex flex-col">
           <form id="form-sec" class="flex flex-row my-4" onsubmit="subscribeToWaitlist()" action="javascript:void(0)">
             <input id="emailInput" type="email" class="w-72 rounded-md px-4 bg-foreground border border-border text-copy" placeholder="Enter your email" />
-            <button type="submit"  class="h-10 bg-primary-dark border-1 border-border text-copy px-5 rounded-md hover:bg-primary leading-3 ml-4">Join the Waitlist</button>
+            <button id="submitButton" type="submit" class="h-10 bg-primary-dark border-1 border-border text-copy px-5 rounded-md hover:bg-primary leading-3 ml-4">
+                Join the Waitlist
+                <div id="waitlistSpinner" class="hidden">
+                <i class="fas fa-spinner fa-spin" ></i>
+            </div>
+            </button>
           </form>
           <span id="waitlistMessage" class="text-copy-lighter text-sm"></span>
         </div>
