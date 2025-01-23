@@ -54,11 +54,22 @@
       .bg-primary-dark {
         background-color: #5a97a3;
       }
+      .bg-secondary {
+        background-color: #b6847a;
+      }
       .bg-foreground {
         background-color: #1b2d31;
       }
       .border-border {
         border-color: #2e4c52;
+      }
+
+      .current-progress {
+        width: 43.75%;
+      }
+
+      .bg-warning {
+        background-color: #b6b67a;
       }
     </style>
   </head>
@@ -75,7 +86,7 @@
         <span class="text-copy-light text-2xl mt-6">Indie-Friendly Hosting That Works the Way You Do</span>
 
         <div class="border-t border-border w-full my-8"></div>
-        <div class="flex flex-col">
+        <div class="flex flex-col justify-center items-center">
           <form id="form-sec" class="flex flex-row my-4" onsubmit="subscribeToWaitlist()" action="javascript:void(0)">
             <input id="emailInput" type="email" class="w-72 rounded-md px-4 bg-foreground border border-border text-copy" placeholder="Enter your email" />
             <button id="submitButton" type="submit" class="h-10 bg-primary-dark border-1 border-border text-copy px-5 rounded-md hover:bg-primary leading-3 ml-4">
@@ -86,6 +97,18 @@
             </button>
           </form>
           <span id="waitlistMessage" class="text-copy-lighter text-sm"></span>
+          
+          <div class="flex flex-col items-center mt-2 w-full rounded-md">
+            <span class="font-bold text-sm text-copy">First 16 Waitlist-Signups get 6 months of IndieCloud for free!</span>
+            <div class="bg-foreground rounded-md shadow-sm overflow-hidden p-1 w-full mt-0.5">
+                <div class="relative h-6 flex items-center justify-center">
+                    <div class="absolute top-0 bottom-0 left-0 rounded-md current-progress bg-secondary"></div>
+                    <div class="flex flex-col relative text-copy font-medium text-sm">
+                        <span>7 / 16 Signups</span>
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
         <span class="mt-6 text-copy-light text-xl text-center">
           IndieCloud combines the predictability and low cost of a VPS with the simplicity of Vercel. Frontend, backend, or database – deploy everything directly from your GitHub
