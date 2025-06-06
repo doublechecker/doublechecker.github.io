@@ -8,7 +8,8 @@
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <script src="assets/waitlist.js"></script>
+    <script src="assets/email-subscribe.js"></script>
+    <script src="assets/trackify.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RSD7BJ0GHQ"></script>
     <script>
@@ -34,15 +35,27 @@
       })(window, document, 'script', 'dataLayer', 'GTM-PFWN2VXT');
     </script>
     <!-- End Google Tag Manager -->
+
+    <!-- Trackify -->
+    <script>
+      initTyTracker({
+        url: 'https://trackify-server-6daf5bd7.app.indiecloud.dev',
+        streamId: '1337abcde-10f8-4c50-8a82-53088a8a526d',
+        environment: 'production',
+        debug: false
+      });
+    </script>
+
     <style>
       body {
         font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
         /* background-color: #121e21; */
 
-        background: linear-gradient(135deg, #121e21, #2e4c52, #121e21);
+        background: linear-gradient(125deg, #202b2d, #192f34, #202b2d);
         background-size: 400% 400%;
         animation: gradientBG 15s ease infinite;
+        overflow-x: hidden;
       }
 
       body::before {
@@ -52,7 +65,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-image: radial-gradient(rgba(255, 255, 255, 0.08) 2px, transparent 1px);
         background-size: 20px 20px;
         pointer-events: none;
         z-index: -1;
@@ -107,6 +120,23 @@
       .bg-secondary {
         background-color: #b6847a;
       }
+      .bg-secondary-dark {
+        background-color: #a3665a;
+      }
+      .bg-secondary-light {
+        background-color: #d8b6a3;
+      }
+      .bg-success {
+        background-color: #7ab67a;
+      }
+
+      .bg-background {
+        background: #121e21;
+        /* background: #181b1b; */
+      }
+      .bg-background-opaque {
+        background: rgba(18, 30, 33, 0.8);
+      }
       .bg-foreground {
         background-color: #1b2d31;
       }
@@ -129,17 +159,104 @@
       .hoverable {
         transition: all 0.3s;
         cursor: pointer;
+        background-color: rgb(46, 76, 82, 0.3);
       }
       .hoverable:hover {
         background-color: #2e4c52;
       }
       .bg-foreground-opaque.hoverable:hover {
-        background-color: rgb(46, 76, 82, 0.4);
+        background-color: rgb(46, 76, 82, 0.1);
+      }
+    </style>
+
+    <style>
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 3s ease-out forwards;
+      }
+
+      @keyframes slideInRight {
+        0% {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0%);
+          opacity: 1;
+        }
+      }
+
+      .slide-in-right {
+        transform: translateX(150%);
+        animation: slideInRight 1.25s ease-out forwards;
+      }
+
+      @keyframes slideInLeft {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0%);
+          opacity: 1;
+        }
+      }
+
+      .slide-in-left {
+        transform: translateX(-150%);
+        animation: slideInLeft 1.5s ease-out forwards;
+      }
+
+      .floating-effect {
+        animation: floating 5s ease-in-out infinite;
+      }
+
+      .floating-effect-2 {
+        animation: floating2 8s ease-in-out infinite;
+      }
+
+      @keyframes floating {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes floating2 {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .a-delay-500 {
+        animation-delay: 200ms;
+      }
+      .a-delay-800 {
+        animation-delay: 900ms;
       }
     </style>
   </head>
   <body>
-    <nav class="sticky top-0 w-full bg-foreground-opaque border-b border-border border-solid">
+    <!-- <nav class="sticky top-0 w-full bg-foreground-opaque border-b border-border border-solid">
       <div class="flex flex-row justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex flex-row items-start shrink-0 cursor-pointer">
           <a class="flex items-baseline text-3xl !no-underline">
@@ -156,74 +273,385 @@
           </button>
         </a>
       </div>
-    </nav>
+    </nav> -->
 
-    <div class="flex flex-col items-center justify-center w-full mt-16 md:mt-40">
-      <div class="flex flex-col items-center justify-center md:w-1/2 p-8">
-        <!-- <div class="flex items-baseline text-3xl !no-underline my-6">
-          <span class="text-4xl text-primary-dark">I</span>
-          <span class="text-primary">ndie</span>
-          <span class="text-4xl text-secondary-dark">C</span>
-          <span class="text-secondary">loud</span>
-        </div> -->
-
+    <div ty-track-impression class="flex flex-col items-center justify-center w-full mt-16 md:mt-64 relative z-10">
+      <div class="flex flex-col items-center justify-center md:w-1/2 p-8 relative z-10">
+        <div class="mb-6 px-4 py-1 text-sm font-medium bg-blue-100 text-blue-800 border-2 border-blue-400 rounded-full">🇪🇺 The European Vercel Alternative</div>
         <div class="flex flex-col text-6xl mt-6">
-          <span class="text-primary-dark text-4xl text-center">Deploy Apps Your Way:</span>
-          <span class="text-primary-dark text-center">Simple, Affordable, Flexible</span>
+          <span class="text-copy-lighter text-4xl text-center">Deploy Apps Your Way:</span>
+          <span class="text-primary-dark text-center mt-4">Simple, Affordable, Flexible</span>
         </div>
 
         <div class="flex flex-col mt-12">
-          <span class="text-copy-light text-xl text-center">
-            IndieCloud combines the predictability and low cost of a VPS with the simplicity of Vercel. Frontend, backend, or database – deploy everything directly from your GitHub
-            repo and focus on creating value, not dealing with hosting headaches.
-          </span>
+          <span class="text-copy-light text-xl text-center"> IndieCloud combines the predictability and low cost of a VPS with the simplicity of Vercel. </span>
+        </div>
+      </div>
+
+      <div class="container m-auto flex flex-col justify-center items-center px-4">
+        <button id="start-deploying" class="startDeployBtn flex flex-row items-center h-10 bg-primary-dark border border-border text-copy px-5 rounded-md hover:bg-primary">
+          <span class="inline-flex">Start Deploying</span>
+        </button>
+      </div>
+
+      <div class="hidden md:flex absolute -right-96 -top-48 lg:-right-64 -z-10 slide-in-right a-delay-500">
+        <img
+          src="assets/images/screenshots/dashboard.gif"
+          alt="App Screenshot"
+          class="rounded-lg border border-2 border-border shadow-lg object-contain h-full floating-effect-2"
+          style="z-index: -1" />
+      </div>
+
+      <div class="hidden md:flex absolute -bottom-96 -left-48 lg:-bottom-80 lg:left-8 -z-10 slide-in-left a-delay-800">
+        <img
+          src="assets/images/screenshots/postgres_dashboard.gif"
+          alt="App Screenshot"
+          class="rounded-lg border border-2 border-border shadow-lg object-contain h-full floating-effect-2"
+          style="z-index: -1" />
+      </div>
+
+      <!-- Icons top left -->
+      <div class="absolute top-8 -left-8 md:top-0 md:left-8 lg:top-16 lg:left-40 -z-10">
+        <div class="absolute top-16 left-0 md:top-64 md:left-6 lg:top-16 lg:left-0 -z-10 fade-in" style="animation-delay: 3000ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect hoverable" style="animation-delay: 2000ms">
+            <img src="assets/images/appicons/angular.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
+        </div>
+        <div class="absolute -top-32 left-20 -z-10 fade-in" style="animation-delay: 2000ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect hoverable" style="animation-delay: 2300ms">
+            <img src="assets/images/appicons/nextjs.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
+        </div>
+        <div class="absolute left-8 top-48 md:-top-2 md:left-32 lg:-top-2 lg:left-52 -z-10 fade-in" style="animation-delay: 900ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect-2 hoverable" style="animation-delay: 1000ms">
+            <img src="assets/images/appicons/expressjs.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Icons bottom right -->
+      <div class="absolute -bottom-32 right-48 md:-bottom-16 md:right-64 lg:-bottom-16 lg:right-96 -z-10">
+        <div class="absolute top-16 -left-32 md:top-16 md:left-0 lg:top-52 -z-10 fade-in" style="animation-delay: 4000ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect-2 hoverable" style="animation-delay: 2000ms">
+            <img src="assets/images/appicons/go.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
+        </div>
+        <div class="absolute -top-52 left-20 md:-top-96 md:left-20 lg:-top-52 lg:left-20 -z-10 fade-in" style="animation-delay: 2200ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect hoverable" style="animation-delay: 1500ms">
+            <img src="assets/images/appicons/spring.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
+        </div>
+        <div class="absolute -top-32 -left-64 md:-top-2 md:-left-52 -z-10 fade-in" style="animation-delay: 1300ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect-2 hoverable" style="animation-delay: 3000ms">
+            <img src="assets/images/appicons/fastapi.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
+        </div>
+        <div class="absolute top-0 left-8 md:-top-32 md:left-24 lg:top-8 lg:left-36 -z-10 fade-in" style="animation-delay: 1400ms">
+          <div class="w-24 h-24 p-4 rounded-full border border-2 border-border shadow-lg floating-effect hoverable" style="animation-delay: 1000ms">
+            <img src="assets/images/appicons/django.svg" alt="App Screenshot" class="object-contain h-full" style="z-index: -1" />
+          </div>
         </div>
       </div>
     </div>
 
     <!-- <div class="border-t border-border w-full my-8"></div> -->
 
-    <div class="container m-auto flex flex-col justify-center items-center px-4">
-      <a href="https://app.indiecloud.dev?utm_source=website&utm_medium=cta&utm_campaign=landingpage&utm_content=hero&utm_term=start_deploying" target="_blank">
-        <button class="flex flex-row items-center h-10 bg-primary-dark border border-border text-copy px-5 rounded-md hover:bg-primary">
-          <span class="inline-flex">Start Deploying</span>
-        </button>
-      </a>
-    </div>
+    <section ty-track-impression id="features" class="container m-auto px-8 text-center mt-80 pt-64">
+      <h2 class="text-4xl text-copy-lighter mb-8">Why IndieCloud?</h2>
+      <h3 class="text-2xl text-copy-light mb-12">Simple for Startups. Flexible for Scale-Ups.</h3>
 
-    <section id="features" class="container m-auto pt-16 md:pt-60 px-8 grid md:grid-cols-3 gap-8 text-center">
-      <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
-        <h3 class="text-2xl font-bold text-copy-lighter">One-Click Deploy</h3>
-        <p class="text-copy mt-2">Deploy your entire stack: frontend, backend, and database with a single click.</p>
-      </div>
+      <div class="container m-auto grid md:grid-cols-3 gap-8 text-center">
+        <!-- Framework Detection -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-code text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Framework Detection</h3>
+              </div>
+              <p class="text-copy mt-2">Angular, Django, Spring Boot, you name it, we support it.</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
-        <h3 class="text-2xl font-bold text-copy-lighter">Scalable & Flexible</h3>
-        <p class="text-copy mt-2">Scale only when your project needs it. Full control, No pressure.</p>
-      </div>
+        <!-- Github Integration -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-server text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">GitHub Integration</h3>
+              </div>
+              <p class="text-copy mt-2">Push your code, get your app deployed.</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
-        <h3 class="text-2xl font-bold text-copy-lighter">Affordable, Fixed Pricing</h3>
-        <p class="text-copy mt-2">Transparent pricing designed for IndieHackers. No hidden fees, no surprises.</p>
+        <!-- Managed -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-database text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Managed Services</h3>
+              </div>
+              <p class="text-copy mt-2">with Backup and Restore built-in.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Easy App Connection -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-bolt text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Easy App Connection</h3>
+              </div>
+              <p class="text-copy mt-2">Auto-Connect your App with your DB.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logs and Metrics -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-chart-bar text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Built-in Logs and Metrics</h3>
+              </div>
+              <p class="text-copy mt-2">no extra setup required.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi Envs -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-code-branch text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Multi-Environments</h3>
+              </div>
+              <p class="text-copy mt-2">Develop, Staging, Production or name it whatever you want.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scalable & Flexible -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-expand-arrows-alt text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Scalable & Flexible</h3>
+              </div>
+              <p class="text-copy mt-2">Scale only when you need it. Full control, No pressure.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Affordable, Fixed Pricing -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-credit-card text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Affordable, Fixed Pricing</h3>
+              </div>
+              <p class="text-copy mt-2">Transparent pricing designed to <b>not</b> surprise you.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hosted in Germany -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col">
+              <i class="fa fa-check-circle text-2xl text-success m-1"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <div class="flex flex-row items-center">
+                <i class="fa fa-solid fa-globe-europe text-2xl text-primary mr-3"></i>
+                <h3 class="text-2xl text-copy-lighter">Hosted in Germany</h3>
+              </div>
+              <p class="text-copy mt-2">GDPR friendly, full transparency.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="features" class="container m-auto pt-16 md:pt-32 px-8 text-center">
-      <div class="p-6 rounded-lg md:w-1/3 m-auto">
-        <div class="inline-flex size-10 p-8 m-1 bg-foreground-opaque rounded-full shadow-lg border border-border hoverable">
+    <div class="flex flex-row justify-between items-center -mx-64 mt-16 md:-my-64">
+      <!-- Image Section -->
+      <div class="logvid flex justify-center mt-16 mb-20 mr-8 md:mt-32 md:mb-80 md:mr-24">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          src="assets/images/screenshots/logs.mp4"
+          alt="App Screenshot"
+          class="slide-in-left rounded-lg border border-2 border-border shadow-lg object-contain h-full"
+          style="
+            max-height: 38rem;
+            z-index: -1;
+            mask-image: linear-gradient(to top, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+          "></video>
+      </div>
+
+      <!-- Image Section -->
+      <div class="metricsvid flex justify-center mt-8 ml-8 pt-18 md:mt-96 md:ml-36 md:pt-64">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          src="assets/images/screenshots/metrics.mp4"
+          alt="App Screenshot"
+          class="slide-in-right rounded-lg border border-2 border-border shadow-lg object-contain h-full"
+          style="
+            max-height: 38rem;
+            z-index: -1;
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+          ">
+          >
+        </video>
+      </div>
+    </div>
+
+    <section ty-track-impression id="features2" class="container m-auto grid md:grid-cols-3 gap-8 text-center px-8 my-32">
+      <div class="flex flex-col p-6 rounded-lg items-center">
+        <div class="flex size-10 p-8 m-1 bg-foreground-opaque rounded-full shadow-lg border border-border hoverable">
           <img src="assets/images/appicons/postgres.png" class="w-16 h-16 mx-auto" />
         </div>
-        <h3 class="text-2xl font-bold text-copy-lighter">Managed PostgreSQL</h3>
+        <h3 class="text-2xl text-copy-lighter">Managed PostgreSQL</h3>
         <p class="text-copy mt-2">
           Let IndieCloud automatically connect your application to a fully managed PostgreSQL database. With our one-click Connect App functionallity you have your database backed
           Application running in seconds.
         </p>
       </div>
+      <div class="flex flex-col p-6 rounded-lg items-center">
+        <div class="flex size-10 p-8 m-1 bg-foreground-opaque rounded-full shadow-lg border border-border hoverable">
+          <img src="assets/images/appicons/keycloak.png" class="w-16 h-16 mx-auto" />
+        </div>
+        <h3 class="text-2xl text-copy-lighter">Managed Keycloak</h3>
+        <p class="text-copy mt-2">
+          Use Keycloak to manage your users and their access to your applications. IndieCloud provides a fully managed Keycloak instance that you can connect to your applications
+          with ease.
+        </p>
+      </div>
+      <div class="flex flex-col p-6 rounded-lg items-center">
+        <div class="flex size-10 p-8 m-1 items-center justify-center bg-foreground-opaque rounded-full shadow-lg border border-border hoverable">
+          <div class="flex items-center justify-center w-16 h-16 m-auto">
+            <i class="fa fa-search text-6xl text-copy-lighter"></i>
+          </div>
+          <!-- <img src="assets/images/appicons/postgres.png" class="w-16 h-16 mx-auto" /> -->
+        </div>
+        <h3 class="text-2xl text-copy-lighter">Observability Stack</h3>
+        <p class="text-copy mt-2">
+          IndieCloud comes with a built-in observability stack that allows you to monitor your applications and databases. Get insights into your application's performance and
+          health with ease.
+        </p>
+      </div>
     </section>
 
-    <section id="features" class="container m-auto pt-16 md:pt-32 px-8 text-center">
-      <h1 class="text-3xl text-copy-lighter">Use the Framework you like</h1>
-      <div class="flex flex-col">
+    <!-- Image Section -->
+    <div class="flex justify-center my-0 h-64 md:h-auto max-h-96">
+      <img
+        src="assets/images/screenshots/env_vars.gif"
+        alt="App Screenshot"
+        class="slide-in-left rounded-lg border border-2 border-border shadow-lg object-contain h-full"
+        style="z-index: -1; mask-image: linear-gradient(to top, black 70%, transparent 100%); -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%)" />
+    </div>
+
+    <section ty-track-impression id="coming-soon" class="container m-auto py-12 md:py-18 px-8 mt-32 rounded-lg shadow-lg border border-border bg-foreground-opaque">
+      <h1 class="text-4xl text-copy-lighter mb-8 text-center">Coming Soon</h1>
+      <div class="container m-auto grid md:grid-cols-3 gap-8">
+        <!-- Mobile App Build Pipeline -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col border border-1 border-white p-2 rounded-md text-center">
+              <i class="fa fa-solid fa-upload text-2xl text-copy"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <h3 class="text-2xl text-copy">Mobile App Build Pipeline</h3>
+              <p class="text-copy-light mt-2">Build & upload iOS and Android apps to the Stores with just a "git push".</p>
+            </div>
+          </div>
+        </div>
+        <!-- Declarative Config -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col border border-1 border-white p-2 rounded-md text-center">
+              <i class="fa fa-solid fa-cog text-2xl text-copy"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <h3 class="text-2xl text-copy">Declarative Config File</h3>
+              <p class="text-copy-light mt-2">Define your project in a config file. We handle the setup.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Declarative Config -->
+        <div class="p-6 bg-foreground-opaque rounded-lg shadow-lg border border-border hoverable">
+          <div class="flex flex-row items-start">
+            <div class="flex flex-col border border-1 border-white p-2 rounded-md text-center">
+              <i class="fa fa-solid fa-shield-alt text-2xl text-copy"></i>
+            </div>
+            <div class="flex flex-col ml-4 items-start">
+              <h3 class="text-2xl text-copy">Shared Responsivility</h3>
+              <p class="text-copy-light mt-2">Let us handle the Operations or go wild on your own with infrastructure access levels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Section -->
+    <div class="hidden md:flex relative -z-10 justify-center my-12 py-24 slide-in-right mt-32" style="height: 26rem">
+      <span class="relative flex size-3 floating-effect-2">
+        <span
+          class="absolute inline-flex h-full w-full animate-ping rounded-md bg-success opacity-75 -z-10"
+          style="left: 22.5%; width: 55%; height: 60%; top: 20%; animation-duration: 2.5s"></span>
+        <img src="assets/images/screenshots/dashboard.gif" alt="App Screenshot" class="rounded-lg border border-2 border-border shadow-lg object-contain h-full z-10" />
+      </span>
+      <!-- <img
+        src="assets/images/screenshots/dashboard.gif"
+        alt="App Screenshot"
+        class="rounded-lg border border-2 border-border shadow-lg object-contain h-full pulse-green"
+        style="z-index: -1" /> -->
+    </div>
+
+    <section ty-track-impression id="frameworks" class="container m-auto pt-16 md:pt-32 px-8 mt-16 text-center">
+      <h1 class="text-4xl text-copy-lighter">Use the Framework you like</h1>
+      <div class="flex flex-col mt-4">
         <div class="flex flex-row flex-wrap justify-center mt-4 md:space-x-8">
           <div class="p-4 m-1 bg-foreground-opaque rounded-full shadow-lg border border-border hoverable">
             <img src="assets/images/appicons/angular.svg" class="w-16 h-16 mx-auto" />
@@ -259,50 +687,159 @@
       </div>
     </section>
 
-    <section class="container items-center m-auto pt-16 md:pt-32 px-8 text-center">
-      <a
-        class="inline-flex"
-        href="https://app.indiecloud.dev?utm_source=website&utm_medium=cta&utm_campaign=landingpage&utm_content=footer&utm_term=start_deploying"
-        target="_blank">
-        <button class="flex flex-row items-center h-10 bg-primary-dark border border-border text-copy px-5 rounded-md hover:bg-primary">
-          <span class="inline-flex">Start Deploying</span>
-        </button>
-      </a>
+    <section class="container flex flex-row justify-center items-center w-full m-auto pt-16 md:pt-32 px-8 text-center">
+      <button id="start-deploying-bottom" class="startDeployBtn flex flex-row items-center h-10 bg-primary-dark border border-border text-copy px-5 rounded-md hover:bg-primary">
+        <span class="inline-flex">Start Deploying</span>
+      </button>
     </section>
 
-    <footer class="bg-foreground border-t border-border border-solid overflow-hidden py-4 mt-32">
+    <footer class="bg-foreground border-t border-border border-solid overflow-hidden py-4 mt-64">
       <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
-          <span class="text-copy-light text-center">
+          <!-- <span class="text-copy-light text-center">
             <a href="https://blog.indiecloud.dev" class="text-secondary-dark underline" target="_blank">Check out our Blog</a>
+          </span> -->
+          <span class="text-copy-light text-center">
+            <a href="https://doublecheck-it.de/impressum" class="text-secondary-dark underline" target="_blank">Imprint</a>
           </span>
 
-          <div class="inline-flex flex-col justify-center items-center pb-2">
-            <!-- <form id="form-sec" class="flex flex-row my-4" onsubmit="subscribeToWaitlist()" action="javascript:void(0)">
-              <input id="emailInput" type="email" class="md:w-72 rounded-md px-4 bg-foreground-opaque border border-border text-copy" placeholder="Enter your email" />
-              <button id="submitButton" type="submit" class="h-10 bg-primary-dark border-1 border-border text-copy px-5 rounded-md hover:bg-primary leading-3 ml-4">
-                Join the Newsletter
-                <div id="waitlistSpinner" class="hidden">
-                  <i class="fas fa-spinner fa-spin"></i>
-                </div>
-              </button>
-            </form>
-            <span id="waitlistMessage" class="text-copy-lighter text-sm"></span> -->
-
-            <!-- <div class="flex flex-col items-center mt-2 w-full rounded-md">
-              <span class="font-bold text-sm text-copy">First 16 Waitlist-Signups get 6 months of IndieCloud for free!</span>
-              <div class="bg-foreground rounded-md shadow-sm overflow-hidden p-1 w-full md:w-1/3 mt-0.5 border border-border">
-                <div class="relative h-6 flex items-center justify-center">
-                  <div class="absolute top-0 bottom-0 left-0 rounded-md current-progress bg-secondary"></div>
-                  <div class="flex flex-col relative text-copy font-medium text-sm">
-                    <span>13 / 16 Signups</span>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-          </div>
+          <div class="inline-flex flex-col justify-center items-center pb-2"></div>
         </div>
       </div>
     </footer>
+
+    <!-- script -->
+    <script>
+      var btns = document.getElementsByClassName('startDeployBtn');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () {
+          openModal();
+        });
+      }
+    </script>
+    <!-- modal -->
+    <style>
+      /* modal */
+      .modal {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+      }
+
+      #leadcaptureButton {
+        max-width: 30rem;
+      }
+    </style>
+    <div id="myModal" class="modal z-30 bg-background-opaque">
+      <!-- <div id="modal-backdrop" class="absolute w-full h-full z-40 modal-close"></div> -->
+      <div id="backdropcontainer" class="relative flex flex-row justify-center items-center w-full h-full z-50 modal-close">
+        <div style="max-width: 50rem" class="modal-content flex flex-col w-full bg-foreground border border-border rounded-lg p-8 m-auto">
+          <div id="close-x" class="modal-close flex flex-row justify-end w-full -mt-4 cursor-pointer">
+            <i class="fas fa-times -mr-4 text-primary-dark"></i>
+          </div>
+          <h2 class="text-3xl text-primary mt-4">Early Access</h2>
+          <span class="text-copy-light mt-4">Please enter your email to get early access to IndieCloud.</span>
+          <form id="leadcaptureform" onsubmit="submitLeadCaptureForm(event)" class="mt-6">
+            <div class="flex flex-col">
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email"
+                type="email"
+                placeholder="Email"
+                required />
+            </div>
+            <div class="flex flex-row items-start justify-start mt-4 px-1">
+              <input id="privacyConsent" class="mt-1" type="checkbox" required />
+              <span class="text-sm text-copy ml-2">
+                I agree to the processing of my personal data for the purpose of receiving information about IndieCloud and its services. I have read the
+                <a href="https://indiecloud.dev/privacy" target="_blank" class="text-copy-light hover:underline">privacy policy</a> and agree to it.
+                <!-- Ich bin einverstanden, dass meine E-Mail für den Versand von Informationen zu euren Services genutzt wird. -->
+                <!-- <a href="#" target="_blank" class="text-copy-light hover:underline">Datenschutzerklärung</a>. -->
+              </span>
+            </div>
+            <div class="flex flex-col justify-center items-center mt-6">
+              <button id="leadcaptureButton" class="flex flex-row items-center h-10 bg-primary-dark border border-border text-copy px-5 rounded-md hover:bg-primary">
+                <span>Get Early Access</span>
+                <div id="leadcaptureLoadingSpinner" class="hidden">
+                  <i class="fas fa-spinner fa-spin ml-2"></i>
+                </div>
+              </button>
+              <span class="text-xs text-copy-lighter mt-1 text-center">We will never send you spam and we will never share your data with third parties.</span>
+              <span id="successMessage" class="text-success mt-4 hidden"> Thank you! We have sent you an email with the link to access IndieCloud. </span>
+              <span id="errorMessage" class="text-error mt-4 hidden">
+                Damn! There was an error while submitting your email. Please
+                <a href="mailto:info@doublecheck-it.de" class="text-copy-light hover:underline">reach out to us</a>.</span
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      function submitLeadCaptureForm(event) {
+        event.preventDefault(); // prevent form submission
+
+        var submitButton = document.getElementById('leadcaptureButton');
+        var loadingSpinner = document.getElementById('leadcaptureLoadingSpinner');
+
+        //var form = document.querySelector('#leadcaptureform #email');
+        var email = document.querySelector('#leadcaptureform #email');
+        var subscribeObj = {
+          email: email.value,
+          tags: ['indiecloud_earlyaccess']
+        };
+        var endpointUrl = 'https://waitlist-server-a5436237.app.indiecloud.dev/api/v1/subscriptions';
+
+        submitButton.disabled = true;
+        loadingSpinner.classList.remove('hidden');
+
+        subscribeToMaillist(endpointUrl, subscribeObj, function (success) {
+          submitButton.disabled = false;
+          loadingSpinner.classList.add('hidden');
+
+          if (success) {
+            document.getElementById('successMessage').classList.remove('hidden');
+          } else {
+            document.getElementById('errorMessage').classList.remove('hidden');
+          }
+
+          setTimeout(function () {
+            closeModal();
+          }, 5000);
+        });
+      }
+    </script>
+    <script>
+      function openModal() {
+        document.dispatchEvent(new Event('openModal'));
+      }
+
+      var modal = document.getElementById('myModal');
+      var modalBackdrop = document.getElementById('backdropcontainer');
+      var closeX = document.getElementById('close-x');
+
+      closeX.onclick = function () {
+        closeModal();
+      };
+
+      // listen to event "openModal" to open the modal
+      document.addEventListener('openModal', function () {
+        modal.style.display = 'block';
+      });
+
+      window.onclick = function (event) {
+        if (event.target == modalBackdrop) {
+          closeModal();
+        }
+      };
+
+      function closeModal() {
+        modal.style.display = 'none';
+      }
+    </script>
   </body>
 </html>
