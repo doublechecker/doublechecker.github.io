@@ -11,7 +11,7 @@
     <script src="assets/email-subscribe.js"></script>
     <script src="assets/trackify.js"></script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RSD7BJ0GHQ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTX3BS5E2Y"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -19,7 +19,7 @@
       }
       gtag('js', new Date());
 
-      gtag('config', 'G-RSD7BJ0GHQ');
+      gtag('config', 'G-FTX3BS5E2Y');
     </script>
     <!-- Google Tag Manager -->
     <script>
@@ -795,6 +795,12 @@
     <script>
       function submitLeadCaptureForm(event) {
         event.preventDefault(); // prevent form submission
+
+        gtag('event', 'lead_capture', {
+          event_category: 'Lead Capture',
+          event_label: 'Early Access Signup',
+          value: 1
+        });
 
         var submitButton = document.getElementById('leadcaptureButton');
         var loadingSpinner = document.getElementById('leadcaptureLoadingSpinner');
