@@ -802,11 +802,11 @@
         //var form = document.querySelector('#leadcaptureform #email');
         var email = document.querySelector('#leadcaptureform #email');
         var name = document.querySelector('#leadcaptureform #name');
-        var fistName = name.value.trim();
+        var firstName = name.value.trim();
         var lastName = '';
-        if (fistName.includes(' ')) {
-          lastName = fistName.split(' ').slice(1).join(' ');
-          fistName = fistName.split(' ')[0];
+        if (firstName.includes(' ')) {
+          lastName = firstName.split(' ').slice(1).join(' ');
+          firstName = firstName.split(' ')[0];
         }
 
         var subscribeObj = {
