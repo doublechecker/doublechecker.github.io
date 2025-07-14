@@ -1,5 +1,5 @@
 function subscribeToMaillist(endpoint, subscribeObj, callback) {
-  var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '';
+  var isLocal = false; //window.location.hostname === 'localhost' || window.location.hostname === '';
   if (isLocal) {
     console.log('Running in local environment, not sending email');
     setTimeout(() => {
@@ -22,6 +22,7 @@ function subscribeToMaillist(endpoint, subscribeObj, callback) {
           }
         } else {
           console.error('Request failed with status:', xhr.status);
+          callback(false);
         }
       }
     };

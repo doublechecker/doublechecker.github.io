@@ -46,6 +46,8 @@
       });
     </script>
 
+    <script src="https://www.google.com/recaptcha/api.js?render=6LckOIIrAAAAAN1rBhdM7mDfuOSkEWO0MJmxfi-H"></script>
+
     <style>
       html,
       body {
@@ -796,49 +798,57 @@
       function submitLeadCaptureForm(event) {
         event.preventDefault(); // prevent form submission
 
-        gtag('event', 'ads_conversion_Formular_1', {
-          event_category: 'Lead Capture',
-          event_label: 'Early Access Signup',
-          value: 1
-        });
+        grecaptcha.ready(function () {
+          grecaptcha.execute('6LckOIIrAAAAAN1rBhdM7mDfuOSkEWO0MJmxfi-H', { action: 'submit' }).then(function (token) {
+            // Add your logic to submit to your backend server here.
 
-        var submitButton = document.getElementById('leadcaptureButton');
-        var loadingSpinner = document.getElementById('leadcaptureLoadingSpinner');
+            gtag('event', 'ads_conversion_Formular_1', {
+              event_category: 'Lead Capture',
+              event_label: 'Early Access Signup',
+              value: 1
+            });
 
-        //var form = document.querySelector('#leadcaptureform #email');
-        var email = document.querySelector('#leadcaptureform #email');
-        var name = document.querySelector('#leadcaptureform #name');
-        var firstName = name.value.trim();
-        var lastName = '';
-        if (firstName.includes(' ')) {
-          lastName = firstName.split(' ').slice(1).join(' ');
-          firstName = firstName.split(' ')[0];
-        }
+            var submitButton = document.getElementById('leadcaptureButton');
+            var loadingSpinner = document.getElementById('leadcaptureLoadingSpinner');
 
-        var subscribeObj = {
-          firstName: firstName,
-          lastName: lastName,
-          email: email.value,
-          tags: ['indiecloud_earlyaccess']
-        };
-        var endpointUrl = 'https://waitlist-server-a5436237.app.indiecloud.dev/api/v1/subscriptions';
+            //var form = document.querySelector('#leadcaptureform #email');
+            var email = document.querySelector('#leadcaptureform #email');
+            var name = document.querySelector('#leadcaptureform #name');
+            var firstName = name.value.trim();
+            var lastName = '';
+            if (firstName.includes(' ')) {
+              lastName = firstName.split(' ').slice(1).join(' ');
+              firstName = firstName.split(' ')[0];
+            }
 
-        submitButton.disabled = true;
-        loadingSpinner.classList.remove('hidden');
+            var subscribeObj = {
+              firstName: firstName,
+              lastName: lastName,
+              email: email.value,
+              tags: ['indiecloud_earlyaccess'],
 
-        subscribeToMaillist(endpointUrl, subscribeObj, function (success) {
-          submitButton.disabled = false;
-          loadingSpinner.classList.add('hidden');
+              recaptchaToken: token
+            };
+            var endpointUrl = 'https://waitlist-server-a5436237.app.indiecloud.dev/api/v1/subscriptions';
+            // var endpointUrl = 'http://localhost:8080/api/v1/subscriptions';
 
-          if (success) {
-            document.getElementById('successMessage').classList.remove('hidden');
-          } else {
-            document.getElementById('errorMessage').classList.remove('hidden');
-          }
+            submitButton.disabled = true;
+            loadingSpinner.classList.remove('hidden');
 
-          setTimeout(function () {
-            closeModal();
-          }, 5000);
+            subscribeToMaillist(endpointUrl, subscribeObj, function (success) {
+              submitButton.disabled = false;
+              loadingSpinner.classList.add('hidden');
+
+              if (success) {
+                document.getElementById('successMessage').classList.remove('hidden');
+                setTimeout(function () {
+                  closeModal();
+                }, 5000);
+              } else {
+                document.getElementById('errorMessage').classList.remove('hidden');
+              }
+            });
+          });
         });
       }
     </script>
